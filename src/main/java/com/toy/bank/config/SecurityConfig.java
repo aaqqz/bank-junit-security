@@ -1,6 +1,7 @@
 package com.toy.bank.config;
 
 import com.toy.bank.domain.user.UserEnum;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +17,11 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Slf4j
 @Configuration
+@RequiredArgsConstructor
 public class SecurityConfig {
+
+    private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+    private final CustomAccessDeniedHandler customAccessDeniedHandler;
 
     // (@Configuration 클래스에 @Bean 어노테이션을 붙이면 해당 메서드가 반환하는 객체를 Ioc 컨테이너에 등록)
     // @Configuration 클래스에 있는 @Bean 만 작동한다.
@@ -44,17 +49,9 @@ public class SecurityConfig {
                                 .requestMatchers("/api/admin/**").hasRole(UserEnum.ADMIN.name()) // 최근 공식 분서는 ROLE_ 접두사를 안붙여도
                                 .anyRequest().permitAll()
                 )
-        // todo 수정 필요
-//                .exceptionHandling(e -> e
-//                        .authenticationEntryPoint(unauthorizedEntryPoint)
-//                        .accessDeniedHandler(accessDeniedHandler)
-//                )
                 .exceptionHandling(e -> e
-                        .authenticationEntryPoint((request, response, authException) -> {
-                            response.setContentType("application/json; charset=UTF-8");
-                            response.setStatus(403);
-                            response.getWriter().println("error");
-                        })
+                        .authenticationEntryPoint(customAuthenticationEntryPoint)
+                        .accessDeniedHandler(customAccessDeniedHandler)
                 )
         ;
 
