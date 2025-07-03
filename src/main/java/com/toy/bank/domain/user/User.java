@@ -1,5 +1,6 @@
 package com.toy.bank.domain.user;
 
+import com.toy.bank.common.converter.PasswordConverter;
 import com.toy.bank.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -17,8 +18,9 @@ public class User extends BaseEntity {
     private Long id;
 
     @Column(unique = true, nullable = false, length = 20)
-    private String userName;
+    private String name;
 
+    @Convert(converter = PasswordConverter.class)
     @Column(nullable = false, length = 60) // password encoding(BCrypt)
     private String password;
 
@@ -33,8 +35,8 @@ public class User extends BaseEntity {
     private UserEnum role;
 
     @Builder
-    public User(Long id, String userName, String password, String email, String fullName, UserEnum role) {
-        this.userName = userName;
+    public User(String name, String password, String email, String fullName, UserEnum role) {
+        this.name = name;
         this.password = password;
         this.email = email;
         this.fullName = fullName;
