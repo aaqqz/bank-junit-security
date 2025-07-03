@@ -1,4 +1,4 @@
-package com.toy.bank.config;
+package com.toy.bank.config.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toy.bank.common.dto.ApiResponse;
@@ -29,7 +29,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
         // try-with-resources
         try (OutputStream os = response.getOutputStream()) {
-            objectMapper.writeValue(os, ApiResponse.fail(ErrorCode.SECURITY_002));
+            objectMapper.writeValue(os, ApiResponse.fail(ErrorCode.UNAUTHORIZED));
         }
     }
 }

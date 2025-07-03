@@ -1,4 +1,4 @@
-package com.toy.bank.config;
+package com.toy.bank.config.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toy.bank.common.dto.ApiResponse;
@@ -28,7 +28,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
 
         // try-with-resources
         try (OutputStream os = response.getOutputStream()) {
-            objectMapper.writeValue(os, ApiResponse.fail(ErrorCode.SECURITY_001));
+            objectMapper.writeValue(os, ApiResponse.fail(ErrorCode.FORBIDDEN));
         }
     }
 }

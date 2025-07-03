@@ -8,8 +8,12 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor
 public enum ErrorCode {
 
-    SECURITY_001(HttpStatus.UNAUTHORIZED, "Unauthorized user"),
-    SECURITY_002(HttpStatus.FORBIDDEN, "Access denied"),
+    // security
+    UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "User is unauthorized"),
+    FORBIDDEN(HttpStatus.FORBIDDEN, "Access is forbidden"),
+
+    // user
+    ALREADY_EXISTS_USER(HttpStatus.BAD_REQUEST, "User already exists"),
     ;
 
     private final HttpStatus httpStatus;
