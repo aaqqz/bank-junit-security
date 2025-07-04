@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor
 public enum ErrorCode {
 
+    BAD_REQUEST(HttpStatus.BAD_REQUEST, "Bad Request"),
     // security
     UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "User is unauthorized"),
     FORBIDDEN(HttpStatus.FORBIDDEN, "Access is forbidden"),
