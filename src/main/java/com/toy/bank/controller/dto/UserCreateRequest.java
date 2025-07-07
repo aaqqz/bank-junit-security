@@ -5,11 +5,10 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
 public class UserCreateRequest {
 
     // 영문 및 숫자만 허용, 길이 2~20자 이내
@@ -30,6 +29,14 @@ public class UserCreateRequest {
     @Size(min = 2, max = 20, message = "전체 이름은 길이가 2~20자 이내여야 합니다.")
     @NotBlank(message = "전체 이름은 필수입니다.")
     private final String fullName;
+
+    @Builder
+    public UserCreateRequest(String name, String password, String email, String fullName) {
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.fullName = fullName;
+    }
 
     public UserCreateServiceRequest toServiceRequest() {
         return UserCreateServiceRequest.builder()

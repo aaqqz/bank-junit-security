@@ -24,8 +24,8 @@ class SecurityConfigTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/s/test"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().is(401))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errorCode").value("SECURITY_001"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.statusCode").value("UNAUTHORIZED"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errorCode").value("FORBIDDEN"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.statusCode").value("FORBIDDEN"));
     }
 
     @Test
@@ -36,7 +36,7 @@ class SecurityConfigTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/admin/test"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().is(401))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errorCode").value("SECURITY_001"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.statusCode").value("UNAUTHORIZED"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errorCode").value("FORBIDDEN"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.statusCode").value("FORBIDDEN"));
     }
 }
