@@ -23,7 +23,7 @@ public class JwtProcess {
         return jwtToken;
     }
 
-    public static LoginUser  verifyToken(String token) {
+    public static LoginUser verifyToken(String token) {
         DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC512(JwtConstants.SECRET)).build().verify(token);
         Long id = decodedJWT.getClaim("id").asLong();
         String role = decodedJWT.getClaim("role").asString();
